@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Broken</string>
+    <string name="action_settings">Settings</string>
+    <string name="main_title">Controls</string>
+    <string name="make_call">Make Call</string>
+    <string name="send">Send message</string>
+    <string name="title_activity_make_call">Make A Call</string>
+    <string name="title_activity_send_message">SendMessage</string>
+</resources>
