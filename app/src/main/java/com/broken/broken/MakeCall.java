@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.format.Formatter;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -38,14 +39,18 @@ public class MakeCall extends AppCompatActivity {
     }
 
 
-
+       public void startCall(View screen)
+       {
+           EditText numb= (EditText)findViewById(R.id.editText2);
+           new SendData().execute(numb.getText().toString());
+       }
     private class SendData extends AsyncTask<String,String,String>
     {
 
         boolean found = false;
 
-        TextView view = (TextView) findViewById(R.id.textView);
-        TextView win = (TextView) findViewById(R.id.textView2);
+        EditText numb= (EditText)findViewById(R.id.editText2);
+
 
 
         protected String doInBackground(String... val)
@@ -55,13 +60,10 @@ public class MakeCall extends AppCompatActivity {
             publishProgress(" Background Started");
             try
             {
-                WifiManager wifiMgr = (WifiManager) getSystemService(WIFI_SERVICE);
-                WifiInfo wifiInfo = wifiMgr.getConnectionInfo();
-                int ip = wifiInfo.getIpAddress();
-                String ipAddress = Formatter.formatIpAddress(ip);
+
                 while (true) {
                     publishProgress(" Above Socket");
-                    Socket client = new Socket("192.168.11.101", 9000);
+                    Socket client = new Socket("192.168.0.7", 9000);
                     publishProgress(" Below Socket");
 
 
@@ -69,8 +71,8 @@ public class MakeCall extends AppCompatActivity {
                     PrintWriter printer = new PrintWriter(client.getOutputStream(),true);
                     publishProgress(" Sent data");
                     BufferedReader reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
-                    printer.println(ipAddress);
-                    hostt=reader.readLine();
+                    printer.println(val[0]);
+
                     publishProgress(hostt);
 
                 }
@@ -87,9 +89,9 @@ public class MakeCall extends AppCompatActivity {
         @Override
         protected void onProgressUpdate(String... values) {
             super.onProgressUpdate(values);
-            TextView view=(TextView)findViewById(R.id.textView);
-            StringBuilder builder=new StringBuilder();
-            view.setText(view.getText()+values[0]);
+            EditText upda= (EditText) findViewById(R.id.editText5);
+            upda.setText(upda.getText()+values[0]);
+
 
         }
 
@@ -99,7 +101,7 @@ public class MakeCall extends AppCompatActivity {
         {
             super.onPostExecute(s);
 
-            view.setText("ended"+s);
+            numb.setText("1");
         }
     }
 }
