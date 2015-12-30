@@ -1,5 +1,6 @@
 package com.broken.broken;
 
+import android.content.Intent;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
@@ -61,21 +62,19 @@ public class MakeCall extends AppCompatActivity {
             try
             {
 
-                while (true) {
-                    publishProgress(" Above Socket");
-                    Socket client = new Socket("192.168.0.7", 9000);
-                    publishProgress(" Below Socket");
 
-
-                    publishProgress(" connected");
+                    publishProgress(" \nAbove Socket");
+                    Socket client = new Socket("192.168.11.101", 9000);
+                    publishProgress(" \nconnected");
                     PrintWriter printer = new PrintWriter(client.getOutputStream(),true);
-                    publishProgress(" Sent data");
                     BufferedReader reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
-                    printer.println(val[0]);
+                    printer.println("CALL:"+val[0]+"number of strings ");
+                    publishProgress("\nSent messsage");
+                    String response=reader.readLine();
+                    publishProgress("\nresponse: "+response);
 
-                    publishProgress(hostt);
 
-                }
+
             }
             catch (Exception e)
             {
