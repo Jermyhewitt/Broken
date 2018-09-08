@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity  {
 
 
 
-    Log.w("Start", "Fucker started");
+    Log.w("Start", "started");
         startActivity(new Intent(this,BluetoothClient.class) );
     }
 
