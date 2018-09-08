@@ -68,7 +68,7 @@ public class MakeCall extends AppCompatActivity {
                     publishProgress(" \nconnected");
                     PrintWriter printer = new PrintWriter(client.getOutputStream(),true);
                     BufferedReader reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
-                    printer.println("CALL:"+val[0]+"number of strings ");
+                    printer.println("CALL:"+val[0]);
                     publishProgress("\nSent messsage");
                     String response=reader.readLine();
                     publishProgress("\nresponse: "+response);

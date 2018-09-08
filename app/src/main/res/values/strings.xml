@@ -6,4 +6,12 @@
     <string name="send">Send message</string>
     <string name="title_activity_make_call">Make A Call</string>
     <string name="title_activity_send_message">SendMessage</string>
+    <string name="title_activity_bluetooth_client">BluetoothClient</string>
+    <string name="title_activity_wifi__client">Wifi_Client</string>
+    <string name="title_activity_blue_call">BlueCall</string>
+    <string name="title_activity_blue_message">BlueMessage</string>
+    <string-array name="blueClient">
+        <item>Call</item>
+        <item>Send Message</item>
+        </string-array>
 </resources>

@@ -33,11 +33,7 @@ import java.net.Socket;
 
 
 public class MainActivity extends AppCompatActivity  {
-    static final String PORTNAME = "com.broken.broken";
-    static final String HOSTNAME = "com.broken.broken";
-    String address;
-    public static String connectInfo;
-    Socket client;
+
 
 
     @Override
@@ -58,7 +54,8 @@ public class MainActivity extends AppCompatActivity  {
 
 
 
-
+    Log.w("Start", "Fucker started");
+        startActivity(new Intent(this,BluetoothClient.class) );
     }
 
     @Override
@@ -79,107 +76,20 @@ public class MainActivity extends AppCompatActivity  {
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        try {
-            client.close();
-        }
-        catch(Exception e)
-        {
-            TextView win = (TextView) findViewById(R.id.textView2);
-            win.setText(e.toString());
-        }
-
-    }
-
-    public void sendMessage(View view) {
-        Intent intent = new Intent(this, SendMessage.class);
-        intent.putExtra(PORTNAME, 12347);
-        intent.putExtra(HOSTNAME,"192.165.0.8");
-        startActivity(intent);
-
-    }
-
-
-    public void makeCall(View view) {
-        Intent intent = new Intent(this, MakeCall.class);
-        intent.putExtra(HOSTNAME,connectInfo);
-        startActivity(intent);
-    }
-
-    public void findConnection(View views)
+    public void startWifi(View view)
     {
-        new SendData().execute("process");
+        startActivity(new Intent(this,Wifi_Client.class));
+
     }
-private class SendData extends AsyncTask<String,String,String>
-{
 
-    boolean found = false;
-
-    TextView view = (TextView) findViewById(R.id.textView);
-    TextView win = (TextView) findViewById(R.id.textView2);
-
-
-    protected String doInBackground(String... val)
+    public void startBluetooth (View view)
     {
-        String hostt="";
-
-        publishProgress(" Background Started");
-        try
-        {
-            WifiManager wifiMgr = (WifiManager) getSystemService(WIFI_SERVICE);
-            WifiInfo wifiInfo = wifiMgr.getConnectionInfo();
-            int ip = wifiInfo.getIpAddress();
-            String ipAddress = Formatter.formatIpAddress(ip);
-                     while (true) {
-                         publishProgress(" Above Socket");
-                          client = new Socket("192.168.11.101", 9000);
-                          publishProgress(" Below Socket");
-                         MainActivity.connectInfo="192.169.11.101";
-
-
-                         publishProgress(" connected");
-                         PrintWriter printer = new PrintWriter(client.getOutputStream(),true);
-                         publishProgress(" Sent data");
-                         BufferedReader reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
-                         printer.println(ipAddress);
-                         hostt=reader.readLine();
-                         publishProgress(hostt);
-
-                     }
-        }
-        catch (Exception e)
-        {
-            publishProgress(e.toString());
-
-        }
-
-        return hostt;
-    }
-
-    @Override
-    protected void onProgressUpdate(String... values) {
-        super.onProgressUpdate(values);
-        TextView view=(TextView)findViewById(R.id.textView);
-        StringBuilder builder=new StringBuilder();
-        view.setText(view.getText()+values[0]);
-
+        startActivity(new Intent(this,BluetoothClient.class));
     }
 
 
-    @Override
-    protected void onPostExecute(String s)
-    {
-        super.onPostExecute(s);
-
-        view.setText("ended"+s);
-    }
-}
 
 }
